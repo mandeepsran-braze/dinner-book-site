@@ -34,7 +34,7 @@
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
-body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
+body { overflow-x: clip; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 3px solid var(--main); outline-offset: 2px; border-radius: 6px; }
@@ -46,11 +46,12 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
 /* header */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
 .top .wrap { display: grid; gap: 10px; padding-block: 12px 10px; }
-.brand { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.brand { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; }
 .brand h1 { font-family: var(--display); font-weight: 700; font-size: 1.55rem; line-height: 1.1; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
 .brand .count { color: var(--ink-2); font-size: 0.85rem; white-space: nowrap; }
-.searchrow { display: flex; gap: 8px; }
-.search { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding-inline: 12px; }
+.searchrow { display: flex; flex-wrap: wrap; gap: 8px; }
+.top .wrap > *, .filters > *, main.wrap > * { min-width: 0; }
+.search { flex: 1 1 220px; min-width: 0; display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding-inline: 12px; }
 .search input { flex: 1; min-width: 0; border: 0; background: transparent; padding-block: 11px; outline: none; }
 .search:focus-within { border-color: var(--main); box-shadow: 0 0 0 3px color-mix(in srgb, var(--main) 25%, transparent); }
 .search .clear { border: 0; background: none; color: var(--ink-2); padding: 4px; display: none; }
@@ -63,13 +64,12 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
 .filters { display: grid; gap: 10px; padding-top: 12px; }
 .hint { margin: 0; font-size: 0.8rem; color: var(--ink-2); }
 
-.chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
-.chips::-webkit-scrollbar { display: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip { flex: none; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: 0.88rem; font-weight: 500; }
 .chip[aria-pressed="true"] { background: var(--main); border-color: var(--main); color: var(--on-main); }
 .chip.side[aria-pressed="true"] { background: var(--side); border-color: var(--side); color: var(--on-main); }
 .chiplabel { flex: none; align-self: center; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); padding-right: 2px; }
-.bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 12px 4px; }
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; padding-block: 12px 4px; }
 .bar select { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 7px 10px; }
 .bar .meta { color: var(--ink-2); font-size: 0.9rem; }
 .linkbtn { border: 0; background: none; color: var(--main-text); font-weight: 600; padding: 4px; text-decoration: underline; text-underline-offset: 3px; }
@@ -104,8 +104,9 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
 /* recipe sheet */
 .sheet { position: fixed; inset: 0; z-index: 40; background: var(--bg); overflow-y: auto; overscroll-behavior: contain; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 .sheet-in { max-width: 780px; margin-inline: auto; padding: 0 16px 120px; }
-.sheet-bar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-block: 10px; background: var(--bg); }
-.sheet-bar .grp { display: flex; gap: 8px; }
+.sheet-bar { position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding-block: 10px; background: var(--bg); }
+.sheet-bar .grp { display: flex; flex-wrap: wrap; gap: 8px; }
+.sheet-in, .sheet-in > * { min-width: 0; }
 .sheet h2.title { font-family: var(--display); font-weight: 700; font-size: clamp(1.7rem, 5.5vw, 2.4rem); line-height: 1.12; letter-spacing: -0.015em; margin: 6px 0 10px; text-wrap: balance; overflow-wrap: anywhere; }
 .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 12px 0 4px; }
 .facts div { display: grid; }
@@ -118,7 +119,7 @@ svg.i { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentCo
 .callout.warn { background: var(--warn-tint); color: var(--warn-text); }
 .callout.info { background: var(--info-tint); color: var(--info-text); }
 .sec { margin-top: 28px; }
-.sec h3 { font-family: var(--display); font-size: 1.3rem; margin: 0 0 10px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.sec h3 { font-family: var(--display); font-size: 1.3rem; margin: 0 0 10px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px; }
 .sec h3 small { font-family: var(--body); font-size: 0.8rem; font-weight: 500; color: var(--ink-2); }
 .ctrls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 8px; }
 .stepper { display: inline-flex; align-items: center; border: 1px solid var(--line); background: var(--surface); border-radius: 12px; overflow: hidden; }
@@ -222,6 +223,20 @@ details.pd summary { cursor: pointer; padding: 10px 0; font-weight: 600; }
 details.pd[open] summary { border-bottom: 1px solid var(--line); margin-bottom: 10px; }
 details.pd ul { margin: 0 0 12px; padding-left: 18px; }
 details.pd ol.steps { margin-bottom: 12px; }
+@media (max-width: 560px) { #surprise span { display: none; } #surprise { padding-inline: 12px; } .brand h1 { font-size: 1.3rem; } .search { flex-basis: 140px; } }
+.sched { display: grid; gap: 8px; }
+.srow { display: grid; grid-template-columns: 5.4rem 1fr; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+.sday { font-family: var(--display); font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
+.sday small { display: block; font-family: var(--body); font-weight: 500; font-size: 0.74rem; color: var(--ink-2); margin-top: 2px; }
+.smeal { min-width: 0; display: grid; gap: 4px; }
+.smeal .nm2 { all: unset; cursor: pointer; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.smeal .nm2:hover { text-decoration: underline; text-underline-offset: 3px; }
+.smeal .plus { color: var(--ink-2); font-size: 0.85rem; }
+.sn { display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 0.82rem; color: var(--ink-2); }
+.sn b { color: var(--ink); }
+.pbar { height: 5px; border-radius: 3px; background: var(--surface-2); overflow: hidden; }
+.pbar i { display: block; height: 100%; background: var(--protein); border-radius: 3px; }
+@media (max-width: 420px) { .srow { grid-template-columns: 1fr; gap: 4px; } }
 </style>
 
 </head><body><div id="app">
@@ -236,7 +251,7 @@ details.pd ol.steps { margin-bottom: 12px; }
           <button class="clear" id="qclear" type="button" aria-label="Clear search"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
         </label>
         <button class="btn" id="planbtn" type="button" aria-label="Open plan"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h2l2.2 10.500a1.500 1.500 0 0 0 1.500 1.200h8.200a1.500 1.500 0 0 0 1.500-1.100L20 8H6.200"/><circle cx="9" cy="20" r="1.300"/><circle cx="17" cy="20" r="1.300"/></svg><span>Plan</span><span class="badge num" id="plancount" hidden></span></button>
-        <button class="btn" id="surprise" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg><span>Surprise me</span></button>
+        <button class="btn" id="surprise" type="button" aria-label="Surprise me, open a random recipe"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg><span>Surprise me</span></button>
       </div>
           </div>
   </div>
@@ -308,13 +323,13 @@ details.pd ol.steps { margin-bottom: 12px; }
   function lsGet(k) { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } }
   function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage can be blocked */ } }
   var prefsDoc = null, writeTimer = 0, writing = false, dirty = false;
-  function prefsPayload() { return { favs: Object.keys(S.favs).map(Number), units: S.units, plan: S.plan.map(function (e) { return [e.i, e.sv]; }) }; }
+  function prefsPayload() { return { favs: Object.keys(S.favs).map(Number), units: S.units, plan: S.plan.map(function (e) { return e.m === undefined ? [e.i, e.sv] : [e.i, e.sv, e.m]; }) }; }
   var planLocked = false;
   function applyPrefs(p) {
     if (!p) return;
     if (Array.isArray(p.favs)) { S.favs = {}; p.favs.forEach(function (i) { S.favs[i] = true; }); }
     if (p.units === "us" || p.units === "metric") S.units = p.units;
-    if (Array.isArray(p.plan) && !planLocked) S.plan = p.plan.map(function (a) { return { i: Number(a[0]), sv: Number(a[1]) }; }).filter(function (e) { return BY_ID[e.i] && e.sv > 0; });
+    if (Array.isArray(p.plan) && !planLocked) S.plan = p.plan.map(function (a) { var e = { i: Number(a[0]), sv: Number(a[1]) }; if (a.length > 2) e.m = Number(a[2]); return e; }).filter(function (e) { return BY_ID[e.i] && e.sv > 0; });
   }
   function savePrefs() {
     lsSet("dinnerbook.prefs", prefsPayload());
@@ -614,7 +629,7 @@ details.pd ol.steps { margin-bottom: 12px; }
 
 
   /* ---------- plan: a shopping list and the recipes, built from a list of recipe ids ---------- */
-  var PLAN_RX = /^#plan-(\d+(?:x\d+)?(?:_\d+(?:x\d+)?)*)$/;
+  var PLAN_RX = /^#plan-(\d+(?:x\d+)?(?:[p_]\d+(?:x\d+)?)*)$/;
   var planOpen = false, ticks = { code: "", v: {} }, planNotice = "";
   var SECTION_ORDER = ["produce", "meat", "seafood", "dairy", "canned", "pantry", "frozen", "bakery", "spice", "other"];
   var SECTION_LABEL = { produce: "Produce", meat: "Meat and poultry", seafood: "Fish", dairy: "Dairy and eggs", canned: "Canned and jarred", pantry: "Pantry", frozen: "Frozen", bakery: "Bakery", spice: "Spices", other: "Other" };
@@ -640,16 +655,28 @@ details.pd ol.steps { margin-bottom: 12px; }
     if (unit === "bunch") return 1;
     return (unit === "g" ? PACK_G : PACK_ML)[section] || 250;
   }
-  function planCode() { return "plan-" + S.plan.map(function (e) { return e.i + "x" + e.sv; }).join("_"); }
+  function codeOf(entries) {
+    var out = "", prev;
+    entries.forEach(function (e, n) {
+      out += (n === 0 ? "" : (e.m !== undefined && e.m === prev ? "p" : "_")) + e.i + "x" + e.sv;
+      prev = e.m;
+    });
+    return "plan-" + out;
+  }
+  function planCode() { return codeOf(S.plan); }
   function parsePlan(hash) {
     var m = PLAN_RX.exec(hash); if (!m) return null;
-    var out = [], seen = {}, unknown = 0;
-    m[1].split("_").forEach(function (p) {
-      var a = p.split("x"), id = Number(a[0]), r = BY_ID[id];
-      if (!r) { unknown++; return; }
-      if (seen[id]) return;
-      seen[id] = true;
-      out.push({ i: id, sv: Math.min(24, Math.max(1, Number(a[1]) || r.sv)) });
+    var out = [], seen = {}, unknown = 0, grouped = m[1].indexOf("p") >= 0;
+    m[1].split("_").forEach(function (meal, mi) {
+      meal.split("p").forEach(function (p) {
+        var a = p.split("x"), id = Number(a[0]), r = BY_ID[id];
+        if (!r) { unknown++; return; }
+        if (seen[id]) return;
+        seen[id] = true;
+        var e = { i: id, sv: Math.min(24, Math.max(1, Number(a[1]) || r.sv)) };
+        if (grouped) e.m = mi;
+        out.push(e);
+      });
     });
     return { entries: out, unknown: unknown };
   }
@@ -696,17 +723,23 @@ details.pd ol.steps { margin-bottom: 12px; }
     }
     try { navigator.clipboard.writeText(text).then(function () { done(true); }, fallback); } catch (e) { fallback(); }
   }
+  function shopAmt(o) {
+    // At the store you buy whole items, so counts and bunches round up. Weights and volumes keep their amount.
+    if (o.unit === "count") { var n = Math.max(1, Math.ceil(o.amount - 0.05)); return { text: String(n), name: plural(o.name, n) }; }
+    if (o.unit === "bunch") { var b = Math.max(1, Math.ceil(o.amount - 0.05)); return { text: b + " bunch", name: o.name }; }
+    return { text: fmtAmount(o.unit, o.amount), name: o.name };
+  }
   function shopText() {
     var items = shoppingList(), out = [];
     SECTION_ORDER.forEach(function (sec) {
       var rows = items.filter(function (o) { return !o.staple && o.section === sec; });
       if (!rows.length) return;
       out.push(SECTION_LABEL[sec].toUpperCase());
-      rows.forEach(function (o) { out.push("[ ] " + fmtAmount(o.unit, o.amount) + " " + (o.unit === "count" ? plural(o.name, o.amount) : o.name)); });
+      rows.forEach(function (o) { var a = shopAmt(o); out.push("[ ] " + a.text + " " + a.name); });
       out.push("");
     });
     var st = items.filter(function (o) { return o.staple; });
-    if (st.length) { out.push("PROBABLY IN YOUR PANTRY"); st.forEach(function (o) { out.push("[ ] " + fmtAmount(o.unit, o.amount) + " " + o.name); }); }
+    if (st.length) { out.push("PROBABLY IN YOUR PANTRY"); st.forEach(function (o) { var a = shopAmt(o); out.push("[ ] " + a.text + " " + a.name); }); }
     return out.join("\n");
   }
   function shopRow(o) {
@@ -714,30 +747,55 @@ details.pd ol.steps { margin-bottom: 12px; }
     if (!o.staple && (o.unit === "g" || o.unit === "mL") && /^(meat|seafood|produce|dairy)$/.test(o.section) && o.bought > o.amount * 1.08) buy = "Buy about " + fmtAmount(o.unit, o.bought);
     var uses = o.uses.length > 1 ? "Used in " + o.uses.length + " recipes" : "";
     var sub = [buy, uses].filter(Boolean).join(" · ");
-    return '<li><label><input type="checkbox" data-ptick="' + esc(o.mk) + '"' + (ticks.v[o.mk] ? " checked" : "") + '><span class="a">' + esc(fmtAmount(o.unit, o.amount)) + '</span><span class="t">' + esc(o.unit === "count" ? plural(o.name, o.amount) : o.name) + (sub ? "<small>" + esc(sub) + "</small>" : "") + '</span></label></li>';
+    return '<li><label><input type="checkbox" data-ptick="' + esc(o.mk) + '"' + (ticks.v[o.mk] ? " checked" : "") + '><span class="a">' + esc(shopAmt(o).text) + '</span><span class="t">' + esc(shopAmt(o).name) + (sub ? "<small>" + esc(sub) + "</small>" : "") + '</span></label></li>';
+  }
+  var DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  function dayName(n) { return n < 7 ? DAYS[n] : "Day " + (n + 1); }
+  function schedule(plan) {
+    if (!plan.some(function (e) { return e.m !== undefined; })) return { html: "", stats: null };
+    var meals = [], idx = {};
+    plan.forEach(function (e) {
+      var k = e.m === undefined ? "s" + e.i : "m" + e.m;
+      if (!(k in idx)) { idx[k] = meals.length; meals.push([]); }
+      meals[idx[k]].push(e);
+    });
+    var day = 0, rows = "", sums = { k: 0, p: 0, fi: 0, sf: 0, so: 0 }, nights = 0, maxP = 0;
+    meals.forEach(function (g) {
+      var mx = Math.max.apply(null, g.map(function (e) { return e.sv; })), n = Math.max(1, Math.round(mx / 2));
+      var tot = { k: 0, p: 0, fi: 0, sf: 0, so: 0 };
+      g.forEach(function (e) { var r = BY_ID[e.i]; tot.k += r.k; tot.p += r.p; tot.fi += r.fi; tot.sf += r.sf; tot.so += r.so; });
+      maxP = Math.max(maxP, tot.p);
+      for (var j = 0; j < n; j++) { Object.keys(sums).forEach(function (key) { sums[key] += tot[key]; }); nights++; }
+      var label = n === 1 ? dayName(day) : dayName(day) + "–" + dayName(day + n - 1);
+      var names = g.map(function (e) { return '<button type="button" class="nm2" data-open="' + e.i + '">' + esc(BY_ID[e.i].n) + '</button>'; }).join('<span class="plus"> with </span>');
+      rows += '<div class="srow"><div class="sday num">' + label + '<small>' + (n === 1 ? "Cook" : "Cook, then leftovers") + '</small></div><div class="smeal">' + names +
+        '<div class="sn num"><span><b>' + Math.round(tot.k) + '</b> kcal</span><span><b>' + Math.round(tot.p) + ' g</b> protein</span><span><b>' + Math.round(tot.fi) + ' g</b> fibre</span><span><b>' + tot.sf.toFixed(1) + ' g</b> sat fat</span><span><b>' + Math.round(tot.so) + ' mg</b> sodium</span></div>' +
+        '<div class="pbar" aria-hidden="true"><i style="width:' + Math.min(100, tot.p / 70 * 100).toFixed(0) + '%"></i></div></div></div>';
+      day += n;
+    });
+    var avg = nights ? '<p class="note num">Average dinner, one serving of each dish: <b>' + Math.round(sums.k / nights) + ' kcal</b>, <b>' + Math.round(sums.p / nights) + ' g protein</b>, <b>' + Math.round(sums.fi / nights) + ' g fibre</b>, <b>' + (sums.sf / nights).toFixed(1) + ' g saturated fat</b>, <b>' + Math.round(sums.so / nights) + ' mg sodium</b>.</p>' : "";
+    return { html: '<section class="sec"><h3>Week at a glance <small>Per person</small></h3><div class="sched">' + rows + '</div>' + avg + '</section>', stats: { nights: nights, k: Math.round(sums.k / nights), p: Math.round(sums.p / nights) } };
   }
   function renderPlan() {
     var el = $("plan"), top = el.scrollTop, code = planCode();
     if (ticks.code !== code) ticks = { code: code, v: lsGet("dinnerbook.ticks." + code) || {} };
     var plan = S.plan.filter(function (e) { return BY_ID[e.i]; });
     var bar = '<div class="sheet-bar"><button class="btn" type="button" data-planclose="1">' + ICON.back + ' All recipes</button><div class="grp">' +
-      (plan.length ? '<button class="btn" type="button" data-pcopy="list">Copy list</button><button class="btn" type="button" data-pcopy="code">Copy plan code</button>' : "") + '</div></div>';
+      (plan.length ? '<button class="btn" type="button" data-pcopy="list">Copy list</button><button class="btn" type="button" data-pcopy="code">Copy code</button>' : "") + '</div></div>';
     var html = '<div class="sheet-in">' + bar + '<h2 class="title">Your plan</h2>';
     if (planNotice) html += '<p class="callout warn">' + esc(planNotice) + '</p>';
     if (!plan.length) {
       el.innerHTML = html + '<div class="empty"><h2>No recipes in the plan yet</h2><p>Open any recipe and tap Add to plan. The shopping list and every recipe appear here. A plan link does the same in one step.</p><button class="btn primary" type="button" data-planclose="1">Browse recipes</button></div></div>';
       el.hidden = false; return;
     }
+    var sched = schedule(plan);
     var tot = 0, k = 0, p = 0, cb = 0, f = 0, mins = 0, ahead = [];
     plan.forEach(function (e) { var r = BY_ID[e.i]; tot += e.sv; k += r.k * e.sv; p += r.p * e.sv; cb += r.cb * e.sv; f += r.f * e.sv; mins += r.t; if (r.pa) ahead.push(r.n + " (" + minutes(r.pa) + " wait)"); });
-    html += '<div class="facts num"><div><b>' + plan.length + '</b><span>Recipes</span></div><div><b>' + tot + '</b><span>Servings</span></div><div><b>' + minutes(mins) + '</b><span>Cooking, back to back</span></div><div><b>' + Math.round(k / tot) + ' kcal</b><span>Average serving</span></div><div><b>' + Math.round(p / tot) + ' g</b><span>Protein per serving</span></div></div>';
+html += sched.stats ?
+      '<div class="facts num"><div><b>' + sched.stats.nights + '</b><span>Dinners</span></div><div><b>' + plan.length + '</b><span>Recipes</span></div><div><b>' + minutes(mins) + '</b><span>Cooking, back to back</span></div><div><b>' + sched.stats.k + ' kcal</b><span>Average dinner</span></div><div><b>' + sched.stats.p + ' g</b><span>Protein per dinner</span></div></div>' :
+      '<div class="facts num"><div><b>' + plan.length + '</b><span>Recipes</span></div><div><b>' + tot + '</b><span>Servings</span></div><div><b>' + minutes(mins) + '</b><span>Cooking, back to back</span></div><div><b>' + Math.round(k / tot) + ' kcal</b><span>Average serving</span></div><div><b>' + Math.round(p / tot) + ' g</b><span>Protein per serving</span></div></div>';
     if (ahead.length) html += '<p class="callout info"><b>Plan ahead.</b> ' + esc(ahead.join("; ")) + '</p>';
-    // recipes
-    html += '<section class="sec"><h3>Recipes <small>Change servings or remove</small></h3><div class="plist">' + plan.map(function (e) {
-      var r = BY_ID[e.i];
-      return '<div class="pcard"><button class="nm" type="button" data-open="' + r.i + '">' + esc(r.n) + '</button><div class="sub num">' + (r.r === "m" ? "Main" : "Side") + ' &middot; ' + minutes(r.t) + ' &middot; ' + r.k + ' kcal &middot; ' + r.p + ' g protein per serving</div>' +
-        '<div class="row2"><div class="stepper" role="group" aria-label="Servings"><button type="button" data-psv="' + r.i + ':-1" aria-label="Fewer servings">&minus;</button><output class="num">' + e.sv + ' serving' + (e.sv === 1 ? "" : "s") + '</output><button type="button" data-psv="' + r.i + ':1" aria-label="More servings">+</button></div><span class="sub">' + dinners(e.sv) + '</span><button class="linkbtn" type="button" data-prem="' + r.i + '">Remove</button></div></div>';
-    }).join("") + '</div></section>';
+    html += sched.html;
     // shopping list
     var items = shoppingList(), have = {};
     S.plan.forEach(function (e) { have[e.i] = true; });
@@ -756,6 +814,12 @@ details.pd ol.steps { margin-bottom: 12px; }
       return '<p>About <b>' + esc(fmtAmount("g", o.left)) + '</b> of ' + esc(o.name) + ' is left over after shopping.<span class="links">' + rs.map(function (r) { return '<button type="button" data-open="' + r.i + '">' + esc(r.n) + '</button>'; }).join("") + '</span></p>';
     }).filter(Boolean);
     if (use.length) html += '<section class="sec"><h3>Use up the leftovers</h3><div class="use">' + use.join("") + '</div></section>';
+    // recipes
+    html += '<section class="sec"><h3>Recipes <small>Change servings or remove</small></h3><div class="plist">' + plan.map(function (e) {
+      var r = BY_ID[e.i];
+      return '<div class="pcard"><button class="nm" type="button" data-open="' + r.i + '">' + esc(r.n) + '</button><div class="sub num">' + (r.r === "m" ? "Main" : "Side") + ' &middot; ' + minutes(r.t) + ' &middot; ' + r.k + ' kcal &middot; ' + r.p + ' g protein per serving</div>' +
+        '<div class="row2"><div class="stepper" role="group" aria-label="Servings"><button type="button" data-psv="' + r.i + ':-1" aria-label="Fewer servings">&minus;</button><output class="num">' + e.sv + ' serving' + (e.sv === 1 ? "" : "s") + '</output><button type="button" data-psv="' + r.i + ':1" aria-label="More servings">+</button></div><span class="sub">' + dinners(e.sv) + '</span><button class="linkbtn" type="button" data-prem="' + r.i + '">Remove</button></div></div>';
+    }).join("") + '</div></section>';
     // full recipes
     html += '<section class="sec"><h3>Cook from here <small>Amounts match your servings</small></h3><div class="plist">' + plan.map(function (e) {
       var r = BY_ID[e.i], fct = e.sv / r.sv;
@@ -773,16 +837,20 @@ details.pd ol.steps { margin-bottom: 12px; }
   function hidePlan() { planOpen = false; $("plan").hidden = true; $("plan").innerHTML = ""; syncScroll(); }
   function planFromSearch() {
     // Works on a self-hosted copy: ?plan=370461x4,169738x4. Artifact pages never see the query string, only the hash.
-    try { var q = new URLSearchParams(location.search).get("plan"); return q ? "#plan-" + q.replace(/[,\s]+/g, "_") : ""; } catch (e) { return ""; }
+    try {
+      var q = new URLSearchParams(location.search).get("plan"); if (!q) return "";
+      return "#plan-" + q.split(",").map(function (meal) { return meal.split(/[+\s]+/).filter(Boolean).join("p"); }).filter(Boolean).join("_");
+    } catch (e) { return ""; }
   }
   function route(initial) {
     var h = location.hash || (initial === true ? planFromSearch() : ""), mp = PLAN_RX.exec(h), mr = /^#r-(\d+)$/.exec(h);
     if (mp) {
       var parsed = parsePlan(h);
       if (!parsed) return;
-      if (planOpen && parsed.entries.length === S.plan.length && planCode() === "plan-" + parsed.entries.map(function (e) { return e.i + "x" + e.sv; }).join("_")) { if (open) hideSheet(); return; }
+      if (planOpen && parsed.entries.length === S.plan.length && planCode() === codeOf(parsed.entries)) { if (open) hideSheet(); return; }
       planLocked = true; planNotice = parsed.unknown ? parsed.unknown + " recipe" + (parsed.unknown === 1 ? "" : "s") + " in this link " + (parsed.unknown === 1 ? "is" : "are") + " not in the book any more." : "";
       S.plan = parsed.entries; savePrefs(); updatePlanBadge(); if (open) hideSheet(); planOpen = true; renderPlan(); syncScroll();
+      if (!location.hash) setHash(planCode());
       return;
     }
     if (mr) { if (!open) openRecipe(Number(mr[1]), false); return; }
@@ -797,7 +865,7 @@ details.pd ol.steps { margin-bottom: 12px; }
     if (t.id === "planbtn") { openPlan(); return; }
     if (d.planclose) { hidePlan(); setHash(""); return; }
     if (d.padd) { var pid = Number(d.padd); if (inPlan(pid)) setPlan(S.plan.filter(function (e) { return e.i !== pid; })); else setPlan(S.plan.concat([{ i: pid, sv: BY_ID[pid].sv }])); if (open) renderSheet(true); return; }
-    if (d.psv) { var pp = d.psv.split(":"); setPlan(S.plan.map(function (e) { return e.i === Number(pp[0]) ? { i: e.i, sv: Math.min(24, Math.max(1, e.sv + Number(pp[1]))) } : e; })); return; }
+    if (d.psv) { var pp = d.psv.split(":"); setPlan(S.plan.map(function (e) { return e.i === Number(pp[0]) ? { i: e.i, sv: Math.min(24, Math.max(1, e.sv + Number(pp[1]))), m: e.m } : e; })); return; }
     if (d.prem) { setPlan(S.plan.filter(function (e) { return e.i !== Number(d.prem); })); return; }
     if (d.pcopy) { var btn = t; copyText(d.pcopy === "list" ? shopText() : "#" + planCode(), function (ok) { var old = btn.textContent; btn.textContent = ok ? "Copied" : "Press and hold the code below"; setTimeout(function () { btn.textContent = old; }, 1600); }); return; }
     if (d.pcook) { var pe = S.plan.filter(function (e) { return e.i === Number(d.pcook); })[0]; if (pe) startCook(pe.i, pe.sv); return; }
